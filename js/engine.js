@@ -148,6 +148,21 @@
     elements.result.className = "result" + (type ? " " + type : "");
   }
 
+  function showFieldClue(message) {
+    elements.result.replaceChildren();
+    elements.result.className = "result field-clue";
+
+    const label = document.createElement("span");
+    label.className = "field-clue-label";
+    label.textContent = "SEÑAL DESCIFRADA · PISTA DEL SOBRE";
+
+    const clue = document.createElement("p");
+    clue.className = "field-clue-message";
+    clue.textContent = message;
+
+    elements.result.append(label, clue);
+  }
+
   function renderProgress() {
     if (state.unlockedIndex >= config.stages.length) {
       elements.progress.textContent = config.ui.complete;
@@ -204,7 +219,16 @@
     state.completed[currentStage.id] = true;
     state.unlockedIndex = Math.max(state.unlockedIndex, config.stages.indexOf(currentStage) + 1);
     persist();
-    showResult(message || currentStage.success || config.ui.correct, resultType || "success");
+    const resultMessage = message || currentStage.success || config.ui.correct;
+    if (resultType === "error") {
+      showResult(resultMessage, resultType);
+    } else {
+      if (currentStage.kind === "minigame") {
+        const gameStatus = elements.content.querySelector(".game-status");
+        if (gameStatus) gameStatus.hidden = true;
+      }
+      showFieldClue(resultMessage);
+    }
     elements.checkButton.disabled = true;
     createContinueButton();
     renderProgress();
@@ -378,7 +402,11 @@
       const completedMessage = stage.kind === "coordinates"
         ? config.ui.coordinatesSolved
         : stage.success || stage.reveal || config.ui.correct;
-      showResult(completedMessage, "success");
+      if (stage.kind === "coordinates") {
+        showResult(completedMessage, "success");
+      } else {
+        showFieldClue(completedMessage);
+      }
       if (stage.kind === "coordinates" && stage.map && stage.map.url) addMapLink(stage.map);
       createContinueButton();
       return;
