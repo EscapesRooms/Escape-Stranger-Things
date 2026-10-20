@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" role="img" aria-labelledby="title desc">
+  <title id="title">Observatorio de Sierra del Cuervo</title>
+  <desc id="desc">Sello original del observatorio, 1986.</desc>
+  <rect x="5" y="5" width="390" height="150" rx="8" fill="#09050b" stroke="#ff003c" stroke-width="4"/>
+  <rect x="14" y="14" width="372" height="132" rx="5" fill="none" stroke="#063bff" stroke-width="1.5"/>
+  <text x="200" y="59" fill="#e0e0e0" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="4" text-anchor="middle">OBSERVATORIO</text>
+  <text x="200" y="101" fill="#fff" font-family="Arial, sans-serif" font-size="31" font-weight="900" letter-spacing="3" text-anchor="middle">SIERRA DEL CUERVO</text>
+  <path d="M65 116h270" stroke="#ff003c" stroke-width="2"/>
+  <text x="200" y="137" fill="#00ffcc" font-family="Arial, sans-serif" font-size="13" letter-spacing="5" text-anchor="middle">ESPAÑA · 1986</text>
+</svg>
