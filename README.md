@@ -1,37 +1,45 @@
 # La Señal de Sierra del Cuervo
 
-Campaña original de misterio sobrenatural retro basada en la arquitectura de
-`Escape-Room-Template`. La configuración vive en `js/config.js`; los motores
-`js/engine.js` y `js/minigames.js` se mantienen idénticos a la plantilla.
+Campaña original de misterio sobrenatural retro. Cada etapa sigue el flujo:
+QR oculto → prueba digital → acertijo para hallar el sobre físico del lugar.
+El sobre contiene un artefacto y la pista en papel para encontrar la siguiente
+localización. La configuración está en `js/config.js`; los motores no se han
+modificado.
 
-## Pruebas y códigos QR
+## QR de las seis localizaciones
 
-Publica la carpeta en HTTPS y genera un QR por prueba usando su identificador:
+Publica la campaña en HTTPS y crea un código QR por identificador:
 
-1. `?pista=luces-observatorio`
-2. `?pista=codigo-transmision`
-3. `?pista=frecuencia-sierra`
-4. `?pista=patron-sombras`
-5. `?pista=cancion-regreso`
-6. `?pista=estabilizar-grieta`
+1. `?pista=laboratorio`
+2. `?pista=estacion-radio`
+3. `?pista=cine-aurora`
+4. `?pista=bosque-refugio`
+5. `?pista=casa-senales`
+6. `?pista=el-portal`
 
-El avance se guarda con la clave `escape-room-senal-sierra-1986-v1`. Los QR de
-pruebas futuras solo se abren cuando el jugador haya desbloqueado esa fase.
+El progreso utiliza la clave `escape-room-senal-sierra-1986-v2`, separada de la
+versión anterior para evitar que un avance guardado salte etapas en esta nueva
+ruta.
 
-## Preparación antes de jugar
+## Preparación física
 
-- El contenido es un prototipo: sustituye las ubicaciones y coordenadas de
-  ejemplo por los puntos reales de tu recorrido.
-- Respuestas de referencia para quien organiza: `AURORA`; secuencia
-  `● → ▲ → ✦ → ■`; coordenadas `40°41'25"N 73°58'10"W`; respuesta del quiz `B`.
-- El texto plantea un límite narrativo de 90 minutos, pero esta versión no
-  implementa un temporizador.
-- La pista `assets/audio/stranger_things_intro.mp3` se activa manualmente con
-  el botón de ambiente de la parte superior. Los navegadores requieren pulsar
-  el botón antes de permitir la reproducción.
-- Los recursos copiados restantes de la plantilla no se usan en las pruebas
-  configuradas; reemplázalos por material propio antes de publicar.
+Cada objeto `envelope` de una etapa contiene:
 
-El progreso se guarda en el navegador. `localStorage` y el código JavaScript
-pueden manipularse, por lo que el control de QR evita saltos accidentales, pero
-no ofrece validación antifraude ni sincronización entre dispositivos.
+- `label`: identificador para preparar y ordenar el sobre.
+- `artifact`: objeto físico que va dentro.
+- `nextLocationClue`: pista en papel que dirige al siguiente QR.
+- `ending`: cierre final opcional.
+
+El motor no imprime ni muestra esos campos `envelope`: son instrucciones para
+la persona organizadora. Imprime `nextLocationClue` y colócalo dentro del sobre
+junto al artefacto. Los mensajes de éxito de la prueba digital dan un acertijo
+para localizar el sobre en la misma etapa.
+
+Los acertijos de escondite son ejemplos basados en bancos, ventanas, butacas,
+árboles y peldaños. Comprueba que esos elementos existan y que sea seguro y
+permitido esconder objetos en cada espacio. Cambia las coordenadas y pistas por
+las de tu recorrido real antes de jugar.
+
+La historia menciona 90 minutos, pero esta versión no implementa temporizador.
+El progreso reside en `localStorage` y puede manipularse desde el navegador;
+no es un mecanismo antifraude ni sincroniza entre dispositivos.

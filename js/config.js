@@ -1,5 +1,5 @@
 window.ESCAPE_CONFIG = {
-  storageKey: "escape-room-senal-sierra-1986-v1",
+  storageKey: "escape-room-senal-sierra-1986-v2",
   theme: {
     colors: {
       page: "#030305",
@@ -50,67 +50,97 @@ window.ESCAPE_CONFIG = {
   },
   stages: [
     {
-      id: "luces-observatorio",
+      id: "laboratorio",
       qr: 1,
-      kind: "clue",
-      title: "Las Luces del Observatorio",
-      location: "Puesto de control de la sierra",
-      prompt: "Las lámparas del observatorio parpadean en código Morse: .- / ..- / .-. / --- / .-. / .- Descifra la palabra para encontrar el primer punto de control.",
-      hint: "Es un fenómeno luminoso que aparece en el cielo nocturno.",
-      acceptedAnswers: ["AURORA"],
-      reveal: "La siguiente pista está oculta en una secuencia de transmisión."
+      kind: "quiz",
+      title: "El Laboratorio de la Sierra",
+      location: "Laboratorio de investigación",
+      prompt: "El registro del turno de noche pregunta: ¿qué instrumento permite observar objetos demasiado lejanos para distinguirlos a simple vista?",
+      options: [
+        { id: "A", text: "Un barómetro" },
+        { id: "B", text: "Un telescopio" },
+        { id: "C", text: "Un sismógrafo" },
+        { id: "D", text: "Un cronómetro" }
+      ],
+      answer: "B",
+      attempts: 2,
+      success: "¡Lectura correcta! La siguiente señal está en el sobre de papel que espera donde tres tubos de cobre proyectan su sombra sobre el banco de trabajo.",
+      reveal: "¡Lectura correcta! La siguiente señal está en el sobre de papel que espera donde tres tubos de cobre proyectan su sombra sobre el banco de trabajo.",
+      envelope: {
+        label: "Sobre físico 1",
+        artifact: "Fragmento de una fotografía con una frecuencia anotada al dorso.",
+        nextLocationClue: "Cuando la voz viaja por el aire, alguien debe escucharla: busca el edificio coronado por una antena y una luz roja."
+      }
     },
     {
-      id: "codigo-transmision",
+      id: "estacion-radio",
       qr: 2,
       kind: "minigame",
-      title: "El Código de Transmisión",
-      location: "Sala de radio",
-      prompt: "La emisión muestra: ● → ▲ → ✦ → ■. Repetid la secuencia para descifrar el mensaje.",
-      success: "Transmisión descifrada. La señal apunta hacia la sierra.",
+      title: "La Estación de Radio",
+      location: "Cabina de emisión",
+      prompt: "La transmisión llega entrecortada. Memorizad los símbolos que aparecen en el monitor y repetidlos en el mismo orden.",
+      success: "¡Frecuencia descifrada! La siguiente cinta no está en el dial: buscadla donde el cable enrollado duerme junto a la ventana que mira a las antenas.",
+      envelope: {
+        label: "Sobre físico 2",
+        artifact: "Una cinta magnética con una nota de voz grabada.",
+        nextLocationClue: "Las voces se apagan cuando comienza la sesión. Seguid la marquesina luminosa hasta el lugar donde las historias se proyectan a oscuras."
+      },
       game: {
         type: "runas",
         symbols: ["▲", "●", "■", "✦"],
         sequence: ["●", "▲", "✦", "■"],
         symbolAriaLabel: "Símbolo {symbol}",
         promptText: "Repetid la secuencia interceptada en el orden correcto.",
-        successText: "Habéis descifrado el código de transmisión.",
+        successText: "¡Frecuencia descifrada! La siguiente cinta no está en el dial: buscadla donde el cable enrollado duerme junto a la ventana que mira a las antenas.",
         retryText: "Código incorrecto. La secuencia se ha reiniciado."
       }
     },
     {
-      id: "frecuencia-sierra",
+      id: "cine-aurora",
       qr: 3,
-      kind: "coordinates",
-      title: "Frecuencia de la Sierra",
-      location: "Señal entrante en el transmisor portátil",
-      prompt: "La transmisión estática oculta tres cifras de las coordenadas del siguiente punto. Completa los dígitos para sintonizar la señal.",
-      hint: "Las coordenadas de este prototipo son de ejemplo; adapta los fragmentos a la ubicación de tu recorrido.",
-      fragments: [
-        { text: "40°4" },
-        { answer: "1" },
-        { text: "'2" },
-        { answer: "5" },
-        { text: "\"N 73°5" },
-        { answer: "8" },
-        { text: "'10\"W" }
-      ],
-      reveal: "La señal lleva a una zona donde las sombras se mueven siguiendo un patrón."
+      kind: "minigame",
+      title: "El Cine Aurora",
+      location: "Sala de proyección",
+      prompt: "La pantalla muestra por unos segundos una ruta de butacas. Memorizadla y repetidla antes de que se funda a negro.",
+      success: "¡Ruta encontrada! La cinta que buscáis se oculta entre filas: una butaca vacía, dos detrás de la última luz de pasillo.",
+      envelope: {
+        label: "Sobre físico 3",
+        artifact: "Un fotograma perforado con un símbolo dibujado a mano.",
+        nextLocationClue: "Dejad atrás la pantalla y seguid el sendero donde dos árboles de tronco claro parecen vigilar una pequeña construcción de madera."
+      },
+      game: {
+        type: "anden",
+        nodes: ["2", "5", "8", "3"],
+        choices: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        separator: " → ",
+        hiddenLabel: "?",
+        memoryMs: 2400,
+        hideText: "?",
+        successText: "¡Ruta encontrada! La cinta que buscáis se oculta entre filas: una butaca vacía, dos detrás de la última luz de pasillo.",
+        memorizeText: "Memorizad el recorrido de las butacas...",
+        playText: "Repetid la ruta tocando las butacas.",
+        retryText: "La ruta se ha perdido. Volved a observarla."
+      }
     },
     {
-      id: "patron-sombras",
+      id: "bosque-refugio",
       qr: 4,
       kind: "minigame",
-      title: "El Patrón de las Sombras",
-      location: "Sendero del bosque",
-      prompt: "Memorizad la posición de las marcas luminosas y encontradlas en orden antes de que desaparezcan.",
-      success: "Habéis reconstruido el patrón y localizado el origen de la anomalía.",
+      title: "El Bosque y el Refugio",
+      location: "Claro entre los árboles",
+      prompt: "Las marcas aparecen sobre la corteza y se desvanecen. Memorizad dónde estaban y encontradlas en orden.",
+      success: "¡Patrón reconstruido! El sobre físico duerme donde las raíces de los dos árboles gemelos se rozan bajo una piedra plana.",
+      envelope: {
+        label: "Sobre físico 4",
+        artifact: "Una brújula con la aguja inmóvil y una inicial grabada.",
+        nextLocationClue: "La brújula no señala el norte; apunta a una ventana donde la luz parpadea incluso cuando nadie está en casa."
+      },
       game: {
         type: "guardianes",
         count: 9,
         memoryMs: 2400,
         hiddenLabel: "?",
-        successText: "Patrón reconstruido. La señal se dirige al transmisor central.",
+        successText: "¡Patrón reconstruido! El sobre físico duerme donde las raíces de los dos árboles gemelos se rozan bajo una piedra plana.",
         memorizeText: "Memorizad la posición de las marcas...",
         playText: "Encontrad las marcas en orden, del {first} al {last}.",
         nextText: "Siguiente marca: {next}",
@@ -118,30 +148,42 @@ window.ESCAPE_CONFIG = {
       }
     },
     {
-      id: "cancion-regreso",
+      id: "casa-senales",
       qr: 5,
       kind: "quiz",
-      title: "La Canción de Regreso",
-      location: "Refugio de la estación meteorológica",
-      prompt: "Una persona del equipo se ha desorientado cerca del transmisor. ¿Qué señal sonora acordasteis usar para guiarla de vuelta?",
+      title: "La Casa de las Señales",
+      location: "Porche de la casa",
+      prompt: "En la libreta de campo hay una pregunta: ¿qué aparato transforma una señal eléctrica en sonido para que todos en una habitación puedan oírla?",
       options: [
-        { id: "A", text: "Un tono largo y continuo" },
-        { id: "B", text: "Tres pulsos cortos y dos largos" },
-        { id: "C", text: "Dos pulsos largos y uno corto" },
-        { id: "D", text: "Una alarma que se repite sin pausa" }
+        { id: "A", text: "Un altavoz" },
+        { id: "B", text: "Una brújula" },
+        { id: "C", text: "Un termómetro" },
+        { id: "D", text: "Una linterna" }
       ],
-      answer: "B",
+      answer: "A",
       attempts: 2,
-      reveal: "La señal de regreso funciona. Ya podéis estabilizar la grieta."
+      success: "¡La señal vuelve a sonar! Buscad la cinta donde el porche guarda su sombra: junto al tercer peldaño, bajo la maceta que nunca tiene flores.",
+      reveal: "¡La señal vuelve a sonar! Buscad la cinta donde el porche guarda su sombra: junto al tercer peldaño, bajo la maceta que nunca tiene flores.",
+      envelope: {
+        label: "Sobre físico 5",
+        artifact: "La última página del cuaderno, con el dibujo de una grieta luminosa.",
+        nextLocationClue: "La última marca no está en una puerta ni en una pared: aparece donde el suelo parece abierto y tres luces rojas señalan el borde."
+      }
     },
     {
-      id: "estabilizar-grieta",
+      id: "el-portal",
       qr: 6,
       kind: "minigame",
-      title: "Estabilizar la Grieta",
-      location: "Cámara del observatorio",
-      prompt: "Recordad y repetid las secuencias de energía para estabilizar la anomalía.",
-      success: "La grieta se ha estabilizado. El pueblo está a salvo.",
+      title: "El Portal",
+      location: "Borde de la grieta",
+      prompt: "La anomalía responde a patrones de luz. Memorizad cada secuencia y repetidla para cerrar la grieta.",
+      success: "¡La señal se ha apagado! La última cinta espera donde convergen tres haces rojos, al abrigo de la piedra más oscura.",
+      envelope: {
+        label: "Sobre físico 6 · Cinta final",
+        artifact: "La cinta VHS final con la grabación que explica el origen de la señal.",
+        nextLocationClue: null,
+        ending: "La grabación revela que el equipo ha estabilizado la grieta y completado la misión."
+      },
       game: {
         type: "hechizo",
         symbols: ["⚡", "✦", "◉", "▲", "✹", "☄"],
@@ -155,7 +197,7 @@ window.ESCAPE_CONFIG = {
         playText: "Repetid la secuencia para estabilizar la grieta.",
         roundPassedText: "Energía estabilizada. Preparando la siguiente secuencia.",
         retryText: "La secuencia falló. Observadla otra vez.",
-        successText: "Grieta estabilizada. La señal ha desaparecido."
+        successText: "¡La señal se ha apagado! La última cinta espera donde convergen tres haces rojos, al abrigo de la piedra más oscura."
       }
     }
   ]
