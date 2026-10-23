@@ -47,7 +47,7 @@ no es un mecanismo antifraude ni sincroniza entre dispositivos.
 ## Acceso compartido con códigos
 
 El acceso se valida en el proyecto Firebase compartido con
-`Template`. Al abrir un QR sin una sesión activa, esta aplicación
+`Escape-Harry-Potter`. Al abrir un QR sin una sesión activa, esta aplicación
 redirige al portal, conservando la etapa del QR y seleccionando Stranger
 Things. El jugador introduce un código de un solo uso en el portal; el código
 queda asociado a la aventura seleccionada y el portal vuelve a esta aplicación
@@ -55,7 +55,7 @@ con una sesión verificada.
 
 Configura `publicPortalUrl` en `js/config.js` con la URL pública del portal y
 configura la URL de esta experiencia en
-`Template/js/config.js`, dentro de
+`Escape-Harry-Potter/js/config.js`, dentro de
 `publicPortal.experiences`. Las rutas relativas de ejemplo solo funcionan si
 ambos proyectos se publican bajo el mismo dominio y estructura. Para
 publicaciones independientes, utiliza las URL HTTPS reales.
@@ -63,6 +63,6 @@ publicaciones independientes, utiliza las URL HTTPS reales.
 La sesión se registra en
 `experiencias/stranger-things/accesos/{sessionId}` y el código queda marcado
 con `experiencia: "stranger-things"`. Las reglas combinadas de Firestore están
-en `Template/firestore.rules` y `Quiz/firestore.rules`; hay que
-mantenerlas sincronizadas y publicarlas desde el proyecto compartido para que
-el canje funcione.
+en `Escape-Harry-Potter/firestore.rules`, `Template/firestore.rules` y
+`Quiz/firestore.rules`; hay que mantenerlas sincronizadas y publicarlas desde
+el proyecto compartido para que el canje funcione.
