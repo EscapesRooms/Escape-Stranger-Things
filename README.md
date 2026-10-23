@@ -3,8 +3,8 @@
 Campaña original de misterio sobrenatural retro. Cada etapa sigue el flujo:
 QR oculto → prueba digital → acertijo para hallar el sobre físico del lugar.
 El sobre contiene un artefacto y la pista en papel para encontrar la siguiente
-localización. La configuración está en `js/config.js`; los motores no se han
-modificado.
+localización. La configuración está en `js/config.js`; el motor de juego está
+separado de la validación de acceso compartida con Firebase.
 
 ## QR de las seis localizaciones
 
@@ -43,3 +43,26 @@ las de tu recorrido real antes de jugar.
 La historia menciona 90 minutos, pero esta versión no implementa temporizador.
 El progreso reside en `localStorage` y puede manipularse desde el navegador;
 no es un mecanismo antifraude ni sincroniza entre dispositivos.
+
+## Acceso compartido con códigos
+
+El acceso se valida en el proyecto Firebase compartido con
+`Template`. Al abrir un QR sin una sesión activa, esta aplicación
+redirige al portal, conservando la etapa del QR y seleccionando Stranger
+Things. El jugador introduce un código de un solo uso en el portal; el código
+queda asociado a la aventura seleccionada y el portal vuelve a esta aplicación
+con una sesión verificada.
+
+Configura `publicPortalUrl` en `js/config.js` con la URL pública del portal y
+configura la URL de esta experiencia en
+`Template/js/config.js`, dentro de
+`publicPortal.experiences`. Las rutas relativas de ejemplo solo funcionan si
+ambos proyectos se publican bajo el mismo dominio y estructura. Para
+publicaciones independientes, utiliza las URL HTTPS reales.
+
+La sesión se registra en
+`experiencias/stranger-things/accesos/{sessionId}` y el código queda marcado
+con `experiencia: "stranger-things"`. Las reglas combinadas de Firestore están
+en `Template/firestore.rules` y `Quiz/firestore.rules`; hay que
+mantenerlas sincronizadas y publicarlas desde el proyecto compartido para que
+el canje funcione.

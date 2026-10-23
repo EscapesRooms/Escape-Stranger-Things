@@ -1,4 +1,6 @@
 window.ESCAPE_CONFIG = {
+  experienceId: "stranger-things",
+  publicPortalUrl: "../Template/index.html",
   storageKey: "escape-room-senal-sierra-1986-v2",
   theme: {
     colors: {

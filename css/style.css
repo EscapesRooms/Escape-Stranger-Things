@@ -116,6 +116,23 @@ h1 {
   animation: title-flicker 5s infinite;
 }
 
+.access-error-view {
+  max-width: 640px;
+  margin-top: clamp(40px, 12vh, 120px);
+  text-align: center;
+}
+
+.access-error-view p {
+  margin: 24px auto;
+  line-height: 1.7;
+}
+
+.access-error-view a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #fff;
+}
+
 .intro,
 .progress,
 .footer {

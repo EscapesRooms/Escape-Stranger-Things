@@ -14,6 +14,7 @@
   <div id="background" class="background" aria-hidden="true"></div>
   <audio id="music" loop></audio>
 
+  <div id="game-content" hidden>
   <button id="music-button" class="music-button" type="button"></button>
 
   <main class="container">
@@ -39,9 +40,15 @@
     <p id="notice" class="notice" role="status" aria-live="polite"></p>
     <footer id="game-footer" class="footer"></footer>
   </main>
+  </div>
+
+  <main id="access-error-view" class="container access-error-view" hidden>
+    <h1 id="access-error-title">No se pudo validar el acceso</h1>
+    <p id="access-error-message"></p>
+    <a id="portal-link" href="../Template/index.html">Volver al portal de aventuras</a>
+  </main>
 
   <script src="js/config.js"></script>
-  <script src="js/minigames.js"></script>
-  <script src="js/engine.js"></script>
+  <script type="module" src="js/firebase-auth.js"></script>
 </body>
 </html>
